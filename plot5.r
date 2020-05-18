@@ -12,7 +12,7 @@ unzip(filename)
 NEI <- readRDS("summarySCC_PM25.rds")
 SCC <- readRDS("Source_Classification_Code.rds")
 
-jpeg('question5.jpg')
+jpeg('plot5.jpg')
 #Subset data for Vehicles
 SCCMV <- SCC[grepl("Vehicles", SCC$Short.Name, ignore.case = T),]
 #Subset of the NEI data which corresponds to vehicles
