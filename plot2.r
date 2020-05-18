@@ -12,7 +12,7 @@ unzip(filename)
 NEI <- readRDS("summarySCC_PM25.rds")
 SCC <- readRDS("Source_Classification_Code.rds")
 
-jpeg('question2.jpg')
+jpeg('plot2.jpg')
 #subset data for Baltimore
 NEIBaltimore = subset(NEI, fips %in% c(24510))
 barplot(tapply(NEIBaltimore$Emissions, NEIBaltimore$year, FUN=sum),
