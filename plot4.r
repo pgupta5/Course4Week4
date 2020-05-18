@@ -12,7 +12,7 @@ unzip(filename)
 NEI <- readRDS("summarySCC_PM25.rds")
 SCC <- readRDS("Source_Classification_Code.rds")
 
-jpeg('question4.jpg')
+jpeg('plot4.jpg')
 #Subset data for coal combustion 
 SCCcoal <- SCC[grepl("coal", SCC$Short.Name, ignore.case = T),]
 NEIcoal <- NEI[NEI$SCC %in% SCCcoal$SCC,]
