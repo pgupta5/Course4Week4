@@ -36,6 +36,7 @@ barplot(tapply(NEI$Emissions, NEI$year, FUN=sum),main="Emissions per year",
 
 dev.off()
 ```
+The total emissions have decreased in the United States from 1999 to 2008.
 
 ![Question 1 plot](/question1.jpg)
     
@@ -51,10 +52,12 @@ barplot(tapply(NEIBaltimore$Emissions, NEIBaltimore$year, FUN=sum),
         ylab = 'Emissions')
 dev.off()
 ```
+The total emissions have decreased in Baltimore City, Maryland from 1999 to 2008.
+
 ![Question 2 plot](/question2.jpg)
 
 ## Question 3
-Of the four types of sources indicated by the type\color{red}{\verb|type|}type (point, nonpoint, onroad, nonroad) variable, which of these four sources have seen decreases in emissions from 1999–2008 for Baltimore City? Which have seen increases in emissions from 1999–2008? Use the ggplot2 plotting system to make a plot answer this question.
+Of the four types of sources indicated by the type(point, nonpoint, onroad, nonroad) variable, which of these four sources have seen decreases in emissions from 1999–2008 for Baltimore City? Which have seen increases in emissions from 1999–2008? Use the ggplot2 plotting system to make a plot answer this question.
 
 ```
 library(ggplot2) 
@@ -66,6 +69,8 @@ ggplot(NEIBaltimore,aes(factor(year),Emissions,fill=type)) +
         labs(title="Emissions for each source type (1999-2008) in Baltimore City")
 dev.off()
 ```
+The nonroad and onroad type have shown a decrease in emission from 1999-2008 for Baltimore City.
+
 ![Question 3 plot](/question3.jpg)
 
 ## Question 4
@@ -82,7 +87,10 @@ ggplot(NEIcoal,aes(x = factor(year),y = Emissions/10^5)) +
         labs(title=expression("Coal Combustion Source Emissions Across US from 1999-2008"))
 dev.off()
 ```
+The total emissions related to coal combustions have decreased from 1999 to 2008.
+
 ![Question 4 plot](/question4.jpg)
+
 ## Question 5
 How have emissions from motor vehicle sources changed from 1999–2008 in Baltimore City?
 
@@ -103,7 +111,10 @@ ggplot(NEIMVBaltimore,aes(x = factor(year),y = Emissions)) +
         labs(title=expression("Motor Vehicle Source Emissions in Baltimore City from 1999-2008"))
 dev.off()
 ```
+The total emissions for motor vehicles have decreased in Baltimore City, Maryland from 1999 to 2008.
+
 ![Question 5 plot](/question5.jpg)
+
 ## Question 6
 Compare emissions from motor vehicle sources in Baltimore City with emissions from motor vehicle sources in Los Angeles County, California (fips == "06037"). Which city has seen greater changes over time in motor vehicle emissions?
 
@@ -130,4 +141,6 @@ ggplot(CombinedNEI, aes(x=factor(year), y=Emissions, fill=city)) +
 
 dev.off()
 ```
+The total emissions have decreased in both cities from 1999 to 2008. The emissions in Baltimore have reduced to almost half whereas in LA, there is a decrease but not more than half the levels in 1999.
+
 ![Question 6 plot](/question6.jpg)
