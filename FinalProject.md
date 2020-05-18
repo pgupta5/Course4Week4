@@ -126,7 +126,7 @@ ggplot(CombinedNEI, aes(x=factor(year), y=Emissions, fill=city)) +
         geom_bar(aes(fill=year),stat="identity") +
         facet_grid(.~city) +
         labs(x="Year", y=expression("Total PM"[2.5]*" Emission (Tons)")) + 
-        labs(title=expression("PM"[2.5]*" Motor Vehicle Source Emissions in Baltimore & LA, 1999-2008"))
+        labs(title="Motor Vehicle Source Emissions in Baltimore & LA, 1999-2008")
 
 dev.off()
 ```
