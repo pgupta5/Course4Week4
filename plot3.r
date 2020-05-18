@@ -15,7 +15,7 @@ NEI <- readRDS("summarySCC_PM25.rds")
 SCC <- readRDS("Source_Classification_Code.rds")
 
 
-jpeg('question3.jpg')
+jpeg('plot3.jpg')
 ##NEIBaltimore = subset(NEI, fips %in% c(24510))
 ggplot(NEIBaltimore,aes(factor(year),Emissions,fill=type)) +
         geom_histogram(stat="identity", width = .5) +
