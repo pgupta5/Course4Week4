@@ -12,7 +12,7 @@ unzip(filename)
 NEI <- readRDS("summarySCC_PM25.rds")
 SCC <- readRDS("Source_Classification_Code.rds")
 
-jpeg('question1.jpg')
+jpeg('plot1.jpg')
 
 PM2.5Years = subset(NEI, year %in% c(1999,2002,2005,2008))
 
