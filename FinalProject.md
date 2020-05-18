@@ -42,14 +42,92 @@ dev.off()
 ## Question 2
 Have total emissions from PM2.5 decreased in the Baltimore City, Maryland (fips == "24510") from 1999 to 2008? Use the base plotting system to make a plot answering this question.
 
+```
+jpeg('question2.jpg')
+NEIBaltimore = subset(NEI, fips %in% c(24510))
+barplot(tapply(NEIBaltimore$Emissions, NEIBaltimore$year, FUN=sum),
+        main="Emissions per year",
+        xlab = 'Year',
+        ylab = 'Emissions')
+dev.off()
+```
+![Question 2 plot](/question2.jpg)
+
 ## Question 3
 Of the four types of sources indicated by the type\color{red}{\verb|type|}type (point, nonpoint, onroad, nonroad) variable, which of these four sources have seen decreases in emissions from 1999–2008 for Baltimore City? Which have seen increases in emissions from 1999–2008? Use the ggplot2 plotting system to make a plot answer this question.
 
+```
+library(ggplot2) 
+jpeg('question3.jpg')
+##NEIBaltimore = subset(NEI, fips %in% c(24510))
+ggplot(NEIBaltimore,aes(factor(year),Emissions,fill=type)) +
+        geom_histogram(stat="identity", width = .5) +
+        labs(x="year", y=expression("Total PM"[2.5]*" Emission (Tons)")) + 
+        labs(title="Emissions for each source type (1999-2008) in Baltimore City")
+dev.off()
+```
+![Question 3 plot](/question3.jpg)
+
 ## Question 4
 Across the United States, how have emissions from coal combustion-related sources changed from 1999–2008?
-    
+   
+```
+jpeg('question4.jpg')
+#Subset data for coal combustion 
+SCCcoal <- SCC[grepl("coal", SCC$Short.Name, ignore.case = T),]
+NEIcoal <- NEI[NEI$SCC %in% SCCcoal$SCC,]
+ggplot(NEIcoal,aes(x = factor(year),y = Emissions/10^5)) +
+        geom_bar(stat="identity") +
+        labs(x="Year", y=expression("Total PM"[2.5]*" Emission (10^5 Tons)")) + 
+        labs(title=expression("Coal Combustion Source Emissions Across US from 1999-2008"))
+dev.off()
+```
+![Question 4 plot](/question4.jpg)
 ## Question 5
 How have emissions from motor vehicle sources changed from 1999–2008 in Baltimore City?
 
+```
+jpeg('question5.jpg')
+
+#Subset data for Vehicles
+SCCMV <- SCC[grepl("Vehicles", SCC$Short.Name, ignore.case = T),]
+
+#Subset of the NEI data which corresponds to vehicles
+NEIMV <- NEI[NEI$SCC %in% SCCMV$SCC,]
+
+NEIMVBaltimore = subset(NEIMV, fips %in% c("24510"))
+
+ggplot(NEIMVBaltimore,aes(x = factor(year),y = Emissions)) +
+        geom_bar(stat="identity") +
+        labs(x="Year", y=expression("Total PM"[2.5]*" Emission (Tons)")) + 
+        labs(title=expression("Motor Vehicle Source Emissions in Baltimore City from 1999-2008"))
+dev.off()
+```
+![Question 5 plot](/question5.jpg)
 ## Question 6
 Compare emissions from motor vehicle sources in Baltimore City with emissions from motor vehicle sources in Los Angeles County, California (fips == "06037"). Which city has seen greater changes over time in motor vehicle emissions?
+
+```
+jpeg('question6.jpg')
+#Subset data for Vehicles
+SCCMV <- SCC[grepl("Vehicles", SCC$Short.Name, ignore.case = T),]
+#Subset of the NEI data which corresponds to vehicles
+NEIMV <- NEI[NEI$SCC %in% SCCMV$SCC,]
+#Subset data for LA
+NEIMVLA = subset(NEIMV, fips %in% c("06037"))
+#Subset data for Baltimore City
+NEIMVBaltimore = subset(NEIMV, fips %in% c("24510"))
+
+NEIMVBaltimore$city <- "Baltimore City"
+NEIMVLA$city <- "LA"
+
+CombinedNEI <- rbind(NEIMVBaltimore,NEIMVLA)
+ggplot(CombinedNEI, aes(x=factor(year), y=Emissions, fill=city)) +
+        geom_bar(aes(fill=year),stat="identity") +
+        facet_grid(.~city) +
+        labs(x="Year", y=expression("Total PM"[2.5]*" Emission (Tons)")) + 
+        labs(title=expression("PM"[2.5]*" Motor Vehicle Source Emissions in Baltimore & LA, 1999-2008"))
+
+dev.off()
+```
+![Question 6 plot](/question6.jpg)
